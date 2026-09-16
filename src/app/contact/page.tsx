@@ -30,8 +30,9 @@ export default function ContactPage() {
             Get in touch.
           </h1>
           <p className="mt-4 max-w-lg text-lg text-muted">
-            Reach {profile.fullName} for accessibility audits, Shopify builds,
-            and frontend projects. Required fields are marked with an asterisk.
+            Reach {profile.fullName} for ADA/WCAG audits, remediation, VPAT
+            docs, or accessible web development. Required fields are marked with
+            an asterisk.
           </p>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-2">
@@ -50,6 +51,21 @@ export default function ContactPage() {
                     aria-labelledby="email-label"
                   >
                     {links.email}
+                  </a>
+                </li>
+                <li>
+                  <p className="contact-label" id="upwork-label">
+                    Upwork
+                  </p>
+                  <a
+                    href={links.upwork}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-block text-lg font-semibold text-accent-deep underline underline-offset-4"
+                    aria-labelledby="upwork-label"
+                  >
+                    upwork.com/freelancers/attiqrehmann
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </li>
                 <li>

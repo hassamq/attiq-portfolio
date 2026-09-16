@@ -33,15 +33,17 @@ export default function Home() {
             aria-hidden="true"
           />
 
-          <p className="kicker animate-rise">Portfolio</p>
           <h1
             id="hero-heading"
-            className="animate-rise-1 display mt-4 max-w-3xl text-[clamp(2.8rem,9vw,5.4rem)] font-extrabold leading-[0.94] tracking-[-0.03em]"
+            className="animate-rise display mt-4 max-w-3xl text-[clamp(2.8rem,9vw,5.4rem)] font-extrabold leading-[0.94] tracking-[-0.03em]"
           >
             {profile.fullName}
           </h1>
-          <p className="animate-rise-2 mt-5 text-xl font-semibold text-ink md:text-2xl">
+          <p className="animate-rise-1 mt-5 text-xl font-semibold text-ink md:text-2xl">
             {profile.title}
+          </p>
+          <p className="animate-rise-1 mt-2 text-sm font-semibold text-accent-deep md:text-base">
+            {profile.credentials}
           </p>
           <p className="animate-rise-2 mt-4 max-w-lg text-base leading-relaxed text-muted md:text-lg">
             {profile.tagline}
@@ -146,8 +148,8 @@ export default function Home() {
                 Let&apos;s build accessible products.
               </h2>
               <p className="mt-4 max-w-md text-on-dark-muted">
-                Audits, Shopify builds, and frontend work. I reply to every
-                message.
+                Plain-English reports, direct fixes, and 3 months of free
+                post-project support. I usually reply within a few hours.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3 md:mt-0">

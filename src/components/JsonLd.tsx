@@ -10,7 +10,7 @@ export function JsonLd() {
     url: siteConfig.url,
     email: siteConfig.email,
     image: `${siteConfig.url}/opengraph-image`,
-    sameAs: [siteConfig.linkedin],
+    sameAs: [siteConfig.linkedin, siteConfig.upwork],
     knowsAbout: profile.skills,
     address: {
       "@type": "PostalAddress",
