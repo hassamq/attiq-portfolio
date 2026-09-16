@@ -24,7 +24,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-left" noValidate>
+    <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
       <label className="contact-label">
         Name
         <input
@@ -54,14 +54,14 @@ export function ContactForm() {
           required
           rows={4}
           className="field resize-y"
-          placeholder="How can I help?"
+          placeholder="Project, audit, or collaboration…"
         />
       </label>
-      <button type="submit" className="cta-solid">
+      <button type="submit" className="cta cta-primary w-full">
         Send message
       </button>
       {status === "sent" && (
-        <p className="text-sm text-ink-soft" role="status">
+        <p className="text-sm text-muted" role="status">
           Opening your email app…
         </p>
       )}

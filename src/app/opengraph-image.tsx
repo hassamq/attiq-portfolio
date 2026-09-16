@@ -16,35 +16,18 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "72px 80px",
-          background: "linear-gradient(145deg, #e7eef2 0%, #c5d6e0 45%, #7f9aa8 100%)",
-          color: "#122033",
+          background: "linear-gradient(145deg, #f7f9f7 0%, #eef2ef 50%, #d7efe3 100%)",
+          color: "#14241c",
           fontFamily: "sans-serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            width: 96,
-            height: 96,
-            borderRadius: 999,
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#153042",
-            color: "#f2f7f9",
-            fontSize: 36,
-            fontWeight: 700,
-            marginBottom: 36,
-          }}
-        >
-          AR
+        <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "#1f7a52", marginBottom: 20 }}>
+          {profile.title}
         </div>
         <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1.05, letterSpacing: -1.5 }}>
           {profile.fullName}
         </div>
-        <div style={{ marginTop: 18, fontSize: 32, fontWeight: 600, color: "#243447" }}>
-          {profile.title}
-        </div>
-        <div style={{ marginTop: 28, fontSize: 22, color: "#243447", maxWidth: 900 }}>
+        <div style={{ marginTop: 24, fontSize: 24, color: "#4d5f55", maxWidth: 900 }}>
           {siteConfig.description}
         </div>
       </div>
