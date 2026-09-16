@@ -1,26 +1,280 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page: #e7eef2;
+  --card: #7f9aa8;
+  --card-deep: #6d8796;
+  --ink: #122033;
+  --ink-soft: #243447;
+  --btn: #153042;
+  --btn-hover: #0d2230;
+  --btn-text: #f2f7f9;
+  --focus: #153042;
+  --ring: color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-btn: var(--btn);
+  --color-btn-text: var(--btn-text);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-bricolage);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, #f3f7f9 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, #d5e3ea 0%, transparent 55%),
+    var(--page);
+  color: var(--ink);
+  font-family: var(--font-figtree), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--btn-text);
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bio-shell {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.bio-card {
+  width: min(100%, 23.5rem);
+  background: linear-gradient(180deg, #93adba 0%, var(--card) 48%, var(--card-deep) 100%);
+  border-radius: 1.35rem;
+  padding: 2.6rem 1.85rem 2.35rem;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, #fff 30%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 40%, transparent) inset,
+    0 22px 50px color-mix(in srgb, #122033 12%, transparent);
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.avatar-wrap {
+  display: grid;
+  place-items: center;
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
+.avatar {
+  width: 7.75rem;
+  height: 7.75rem;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 30%, #e8f1f5 0%, #b7c9d3 45%, #8aa3b2 100%);
+  border: 3px solid color-mix(in srgb, #fff 60%, transparent);
+  box-shadow:
+    0 10px 24px color-mix(in srgb, #122033 16%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #fff 45%, transparent);
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-size: 2.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.04em;
+}
+
+.avatar span {
+  transform: translateY(1px);
+}
+
+.bio-name {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-size: clamp(1.85rem, 6.2vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.bio-title {
+  margin: 0.45rem 0 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+
+.bio-links {
+  margin: 1.65rem 0 0;
+  display: grid;
+  gap: 0.7rem;
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
+.torn-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3.35rem;
+  text-decoration: none;
+  color: var(--btn-text);
+  transition: transform 0.2s ease;
+}
+
+.torn-btn:hover {
+  transform: translateY(-2px);
+}
+
+.torn-btn:active {
+  transform: translateY(0);
+}
+
+.torn-btn__shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--btn);
+  filter: drop-shadow(0 6px 10px color-mix(in srgb, #000 18%, transparent));
+  transition: fill 0.2s ease;
+}
+
+.torn-btn:hover .torn-btn__shape {
+  fill: var(--btn-hover);
+}
+
+.torn-btn__label {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-size: 1.08rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.page-back {
+  display: inline-block;
+  margin-top: 1.35rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--ink-soft) 30%, transparent);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.page-back:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.field {
+  width: 100%;
+  margin-top: 0.45rem;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, #fff 72%, var(--page));
+  padding: 0.78rem 0.9rem;
+  color: var(--ink);
+  font: inherit;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.contact-label {
+  display: block;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.cta-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 0.45rem;
+  background: var(--btn);
+  color: var(--btn-text);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cta-solid:hover {
+  background: var(--btn-hover);
+  transform: translateY(-1px);
+}
+
+.contact-divider {
+  margin: 1.4rem 0 0.2rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  border: 0;
 }
