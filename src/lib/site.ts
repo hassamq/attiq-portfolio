@@ -9,6 +9,7 @@ export const profile = {
   fullName: "Attiq Ur Rehman",
   title: "ADA & WCAG Accessibility Specialist",
   initials: "AR",
+  credentials: "ADA · WCAG · Section 508 · VPAT · Web Development",
   responseTime: "Usually replies within a few hours",
 };
 

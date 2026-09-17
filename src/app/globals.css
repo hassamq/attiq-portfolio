@@ -511,15 +511,134 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   min-height: auto;
-  padding-top: 5.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: 5.75rem;
+  padding-bottom: 2.75rem;
 }
 
 @media (min-width: 768px) {
   .hero {
-    min-height: 82svh;
+    min-height: 88svh;
     padding-top: 8rem;
     padding-bottom: 5.5rem;
+  }
+}
+
+.hero-banner {
+  max-width: 42rem;
+}
+
+.hero-name {
+  margin: 0;
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-size: clamp(2.55rem, 11vw, 5.4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+
+.hero-title {
+  margin: 1rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    margin-top: 1.25rem;
+    font-size: 1.65rem;
+  }
+}
+
+.hero-credentials {
+  margin: 0.55rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+@media (min-width: 768px) {
+  .hero-credentials {
+    font-size: 1.05rem;
+  }
+}
+
+.hero-pitch {
+  margin: 8rem 0 0;
+  max-width: 42rem;
+}
+
+@media (min-width: 768px) {
+  .hero-pitch {
+    margin-top: 5.25rem;
+  }
+}
+
+.hero-pitch-title {
+  margin: 0;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 5.8vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.hero-lead {
+  margin: 0.85rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 650;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .hero-lead {
+    font-size: 1.25rem;
+  }
+}
+
+.hero-body {
+  margin: 0.85rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .hero-body {
+    font-size: 1.125rem;
+  }
+}
+
+.section-title {
+  margin-top: 0.75rem;
+  max-width: 36rem;
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-size: clamp(1.55rem, 6vw, 2.35rem);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.final-cta .section-title {
+  color: var(--on-dark);
+}
+
+.section-copy {
+  margin-top: 1rem;
+  max-width: 40rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .section-copy {
+    font-size: 1.125rem;
   }
 }
 
@@ -527,11 +646,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 }
 
 .cta-row .cta {
   width: 100%;
+  font-size: 1.02rem;
 }
 
 @media (min-width: 480px) {
@@ -636,13 +756,28 @@ body {
 .panel h3 {
   margin: 0;
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .panel h3 {
+    font-size: 1.3rem;
+  }
 }
 
 .panel p,
 .panel li {
+  font-size: 1.02rem;
+  line-height: 1.6;
   color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .panel p,
+  .panel li {
+    font-size: 1.05rem;
+  }
 }
 
 .checklist {
@@ -678,6 +813,29 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent-deep);
+}
+
+.process-step h3,
+.process-step .display {
+  font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+  .process-step h3,
+  .process-step .display {
+    font-size: 1.3rem;
+  }
+}
+
+.process-step p:not(.step-num) {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 768px) {
+  .process-step p:not(.step-num) {
+    font-size: 1.05rem;
+  }
 }
 
 .platform-list {
@@ -755,10 +913,16 @@ body {
   gap: 1rem;
   cursor: pointer;
   font-family: var(--font-syne), system-ui, sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   font-weight: 700;
   color: var(--ink);
   list-style: none;
+}
+
+@media (min-width: 768px) {
+  .faq-item summary {
+    font-size: 1.2rem;
+  }
 }
 
 .faq-item summary::-webkit-details-marker {
@@ -779,6 +943,8 @@ body {
 
 .faq-item p {
   margin: 0.75rem 0 0.25rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
   color: var(--muted);
   max-width: 40rem;
 }

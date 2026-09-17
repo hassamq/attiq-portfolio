@@ -49,29 +49,39 @@ export default function Home() {
             aria-hidden="true"
           />
 
-          <h1
-            id="hero-heading"
-            className="animate-rise display max-w-4xl text-[clamp(2rem,8.5vw,4.4rem)] font-extrabold leading-[1.05] tracking-[-0.03em]"
-          >
-            Make your website accessible — and keep it that way.
-          </h1>
-          <p className="animate-rise-1 mt-4 max-w-2xl text-base font-semibold text-ink md:mt-5 md:text-xl">
-            Manual WCAG audits, accessibility remediation, and ongoing testing
-            for websites and digital products.
-          </p>
-          <p className="animate-rise-2 mt-3 max-w-2xl text-base leading-relaxed text-muted md:mt-4 md:text-lg">
-            I help eCommerce, healthcare, SaaS, nonprofit, and other
-            organizations identify accessibility barriers, understand exactly
-            what needs to be fixed, and implement the fixes directly across
-            their website or platform.
-          </p>
-          <div className="animate-rise-3 cta-row">
+          <div className="hero-banner">
+            <h1 id="hero-heading" className="animate-rise hero-name">
+              {profile.fullName}
+            </h1>
+            <p className="animate-rise-1 hero-title">{profile.title}</p>
+            <p className="animate-rise-1 hero-credentials">
+              {profile.credentials}
+            </p>
+          </div>
+
+          <div className="animate-rise-2 cta-row">
             <Link href="/contact" className="cta cta-primary">
               Request an Accessibility Audit
             </Link>
             <Link href="/#services" className="cta cta-ghost">
               View services
             </Link>
+          </div>
+
+          <div className="animate-rise-3 hero-pitch">
+            <p className="hero-pitch-title">
+              Make your website accessible — and keep it that way.
+            </p>
+            <p className="hero-lead">
+              Manual WCAG audits, accessibility remediation, and ongoing testing
+              for websites and digital products.
+            </p>
+            <p className="hero-body">
+              I help eCommerce, healthcare, SaaS, nonprofit, and other
+              organizations identify accessibility barriers, understand exactly
+              what needs to be fixed, and implement the fixes directly across
+              their website or platform.
+            </p>
           </div>
         </section>
 
@@ -96,7 +106,7 @@ export default function Home() {
           <p className="kicker">Who I help</p>
           <h2
             id="who-heading"
-            className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             Built for teams that can&apos;t risk inaccessible experiences.
           </h2>
@@ -119,7 +129,7 @@ export default function Home() {
           <p className="kicker">Services</p>
           <h2
             id="services-heading"
-            className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             What I can do for your website.
           </h2>
@@ -172,11 +182,11 @@ export default function Home() {
           <p className="kicker">Why manual testing</p>
           <h2
             id="manual-heading"
-            className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             Scanners alone are not enough.
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted md:mt-5 md:text-lg">
+          <p className="section-copy">
             I combine automated testing with keyboard testing, screen readers
             (NVDA, JAWS, VoiceOver, TalkBack), and manual review — so you get
             real barriers, not just a tool score.
@@ -190,7 +200,7 @@ export default function Home() {
             ].map((item) => (
               <li
                 key={item}
-                className="panel text-center text-sm font-semibold text-ink md:text-base"
+                className="panel text-center text-[1.02rem] font-semibold text-ink"
               >
                 {item}
               </li>
@@ -207,7 +217,7 @@ export default function Home() {
           <p className="kicker">Process</p>
           <h2
             id="process-heading"
-            className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             How we&apos;ll work together.
           </h2>
@@ -215,10 +225,10 @@ export default function Home() {
             {processSteps.map((step, index) => (
               <li key={step.title} className="process-step">
                 <p className="step-num">Step {index + 1}</p>
-                <h3 className="display mt-2 text-lg font-bold md:text-xl">
+                <h3 className="display mt-2 text-xl font-bold">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm text-muted md:text-base">
+                <p className="mt-2 text-muted">
                   {step.body}
                 </p>
               </li>
@@ -235,7 +245,7 @@ export default function Home() {
           <p className="kicker">Results</p>
           <h2
             id="results-heading"
-            className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             Experience that maps to buyer outcomes.
           </h2>
@@ -263,11 +273,11 @@ export default function Home() {
           <p className="kicker">Platforms</p>
           <h2
             id="platforms-heading"
-            className="display mt-3 text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             Where I work.
           </h2>
-          <p className="mt-3 max-w-2xl text-base text-muted md:mt-4 md:text-lg">
+          <p className="section-copy">
             Accessibility audits and remediation across major CMS platforms and
             custom stacks.
           </p>
@@ -289,11 +299,11 @@ export default function Home() {
           <p className="kicker">About</p>
           <h2
             id="about-heading"
-            className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             About {profile.fullName}
           </h2>
-          <div className="mt-5 max-w-3xl space-y-4 text-base leading-relaxed text-muted md:mt-6 md:space-y-5 md:text-lg">
+          <div className="mt-5 max-w-3xl space-y-4 text-[1.05rem] leading-relaxed text-muted md:mt-6 md:space-y-5 md:text-lg">
             <p>
               I&apos;m {profile.fullName}, an accessibility specialist and
               developer focused on making websites and digital products usable
@@ -339,7 +349,7 @@ export default function Home() {
           <p className="kicker">FAQ</p>
           <h2
             id="faq-heading"
-            className="display mt-3 text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+            className="section-title"
           >
             Common questions.
           </h2>
@@ -363,11 +373,11 @@ export default function Home() {
             <p className="kicker !text-accent-soft">Next step</p>
             <h2
               id="contact-heading"
-              className="display mt-3 max-w-2xl text-[1.75rem] font-bold leading-tight tracking-tight md:text-4xl"
+              className="section-title"
             >
               Have an accessibility issue to investigate?
             </h2>
-            <p className="mt-4 max-w-2xl text-base text-on-dark-muted md:text-lg">
+            <p className="section-copy !text-on-dark-muted">
               Tell me about your website, platform, and accessibility concerns.
               Send your website URL and I&apos;ll help you determine the
               appropriate next step.
