@@ -10,8 +10,16 @@ export function JsonLd() {
     url: siteConfig.url,
     email: siteConfig.email,
     image: `${siteConfig.url}/opengraph-image`,
-    sameAs: [siteConfig.linkedin, siteConfig.upwork],
-    knowsAbout: profile.skills,
+    sameAs: [siteConfig.linkedin, siteConfig.github],
+    knowsAbout: [
+      "WCAG",
+      "ADA compliance",
+      "Section 508",
+      "Accessibility audits",
+      "Accessibility remediation",
+      "VPAT",
+      "Shopify accessibility",
+    ],
     address: {
       "@type": "PostalAddress",
       addressCountry: "PK",

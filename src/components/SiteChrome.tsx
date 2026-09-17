@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navItems } from "@/lib/site";
+import { links, navItems } from "@/lib/site";
 
 export function SkipLink() {
   return (
@@ -23,7 +23,7 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav id="primary-nav" aria-label="Primary">
-          <ul className="m-0 flex list-none flex-wrap items-center gap-x-4 gap-y-1 p-0 md:gap-x-7">
+          <ul className="m-0 flex list-none flex-wrap items-center gap-x-4 gap-y-1 p-0 md:gap-x-6">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="nav-link">
@@ -41,7 +41,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between md:px-8">
+      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between md:px-8">
         <p>© {new Date().getFullYear()} Attiq Ur Rehman</p>
         <nav aria-label="Footer">
           <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
@@ -54,6 +54,28 @@ export function SiteFooter() {
               <Link href="/contact" className="underline">
                 Contact
               </Link>
+            </li>
+            <li>
+              <a
+                href={links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                GitHub
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                LinkedIn
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             </li>
           </ul>
         </nav>

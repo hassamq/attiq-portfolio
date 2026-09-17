@@ -13,68 +13,37 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          position: "relative",
-          background: "linear-gradient(145deg, #05070b 0%, #0b1520 55%, #062018 100%)",
-          color: "#3de0ff",
-          fontSize: 72,
-          fontWeight: 800,
-          letterSpacing: -3,
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          background: "#122019",
           borderRadius: 36,
+          position: "relative",
         }}
       >
         <div
           style={{
             position: "absolute",
-            top: 18,
-            left: 18,
-            width: 28,
-            height: 28,
-            borderTop: "4px solid #3de0ff",
-            borderLeft: "4px solid #3de0ff",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: 18,
-            right: 18,
-            width: 28,
-            height: 28,
-            borderTop: "4px solid #7dffb3",
-            borderRight: "4px solid #7dffb3",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: 18,
-            left: 18,
-            width: 28,
-            height: 28,
-            borderBottom: "4px solid #7dffb3",
-            borderLeft: "4px solid #7dffb3",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: 18,
-            right: 18,
-            width: 28,
-            height: 28,
-            borderBottom: "4px solid #3de0ff",
-            borderRight: "4px solid #3de0ff",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: 14,
+            background: "#176b46",
           }}
         />
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            textShadow: "0 0 24px rgba(61, 224, 255, 0.55)",
+            justifyContent: "center",
+            color: "#f4fbf7",
+            fontSize: 96,
+            fontWeight: 800,
+            letterSpacing: -4,
+            fontFamily:
+              "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
+            lineHeight: 1,
+            marginTop: 8,
           }}
         >
-          AR
+          A
         </div>
       </div>
     ),

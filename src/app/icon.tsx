@@ -3,6 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
+/** Crisp monogram favicon — ink + accent, readable at 16–32px */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -13,61 +14,37 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          background: "#122019",
           position: "relative",
-          background: "#05070b",
-          color: "#3de0ff",
-          fontSize: 13,
-          fontWeight: 800,
-          letterSpacing: -0.5,
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
         }}
       >
-        {/* corner brackets */}
         <div
           style={{
             position: "absolute",
-            top: 3,
-            left: 3,
-            width: 6,
-            height: 6,
-            borderTop: "1.5px solid #3de0ff",
-            borderLeft: "1.5px solid #3de0ff",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: 3,
+            background: "#176b46",
           }}
         />
         <div
           style={{
-            position: "absolute",
-            top: 3,
-            right: 3,
-            width: 6,
-            height: 6,
-            borderTop: "1.5px solid #7dffb3",
-            borderRight: "1.5px solid #7dffb3",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#f4fbf7",
+            fontSize: 18,
+            fontWeight: 800,
+            letterSpacing: -1,
+            fontFamily:
+              "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
+            lineHeight: 1,
+            marginTop: 2,
           }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: 3,
-            left: 3,
-            width: 6,
-            height: 6,
-            borderBottom: "1.5px solid #7dffb3",
-            borderLeft: "1.5px solid #7dffb3",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: 3,
-            right: 3,
-            width: 6,
-            height: 6,
-            borderBottom: "1.5px solid #3de0ff",
-            borderRight: "1.5px solid #3de0ff",
-          }}
-        />
-        <div style={{ display: "flex", alignItems: "center" }}>AR</div>
+        >
+          A
+        </div>
       </div>
     ),
     { ...size },

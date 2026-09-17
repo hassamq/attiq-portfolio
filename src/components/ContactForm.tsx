@@ -6,6 +6,7 @@ import { links } from "@/lib/site";
 type FieldErrors = {
   name?: string;
   email?: string;
+  website?: string;
   message?: string;
 };
 
@@ -18,6 +19,7 @@ export function ContactForm() {
     const next: FieldErrors = {};
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
+    const website = String(data.get("website") || "").trim();
     const message = String(data.get("message") || "").trim();
 
     if (!name) next.name = "Please enter your name.";
@@ -26,7 +28,8 @@ export function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       next.email = "Please enter a valid email address.";
     }
-    if (!message) next.message = "Please enter a message.";
+    if (!website) next.website = "Please enter your website URL.";
+    if (!message) next.message = "Please describe what you need.";
     else if (message.length < 10) {
       next.message = "Please write at least 10 characters.";
     }
@@ -42,7 +45,7 @@ export function ContactForm() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      const order = ["name", "email", "message"] as const;
+      const order = ["name", "email", "website", "message"] as const;
       const firstKey = order.find((key) => nextErrors[key]);
       if (firstKey) {
         document.getElementById(`${formId}-${firstKey}`)?.focus();
@@ -52,11 +55,15 @@ export function ContactForm() {
 
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
+    const website = String(data.get("website") || "").trim();
+    const platform = String(data.get("platform") || "").trim();
     const message = String(data.get("message") || "").trim();
 
-    const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
+    const subject = encodeURIComponent(
+      `Accessibility audit request from ${name}`,
+    );
     const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      `Name: ${name}\nEmail: ${email}\nWebsite: ${website}\nPlatform: ${platform || "Not specified"}\n\n${message}`,
     );
 
     window.location.href = `mailto:${links.email}?subject=${subject}&body=${body}`;
@@ -65,10 +72,14 @@ export function ContactForm() {
 
   const nameId = `${formId}-name`;
   const emailId = `${formId}-email`;
+  const websiteId = `${formId}-website`;
+  const platformId = `${formId}-platform`;
   const messageId = `${formId}-message`;
   const nameErrorId = `${nameId}-error`;
   const emailErrorId = `${emailId}-error`;
+  const websiteErrorId = `${websiteId}-error`;
   const messageErrorId = `${messageId}-error`;
+  const messageHintId = `${messageId}-hint`;
   const statusId = `${formId}-status`;
 
   return (
@@ -126,8 +137,47 @@ export function ContactForm() {
       </div>
 
       <div>
+        <label className="contact-label" htmlFor={websiteId}>
+          Website URL{" "}
+          <span className="required-marker" aria-hidden="true">*</span>
+          <span className="sr-only">(required)</span>
+        </label>
+        <input
+          id={websiteId}
+          type="url"
+          name="website"
+          required
+          inputMode="url"
+          placeholder="https://"
+          className="field"
+          aria-required="true"
+          aria-invalid={errors.website ? "true" : "false"}
+          aria-describedby={errors.website ? websiteErrorId : undefined}
+        />
+        {errors.website && (
+          <span id={websiteErrorId} className="field-error" role="alert">
+            {errors.website}
+          </span>
+        )}
+      </div>
+
+      <div>
+        <label className="contact-label" htmlFor={platformId}>
+          Platform
+        </label>
+        <input
+          id={platformId}
+          type="text"
+          name="platform"
+          placeholder="Shopify, WordPress, custom, etc."
+          className="field"
+        />
+      </div>
+
+      <div>
         <label className="contact-label" htmlFor={messageId}>
-          Message <span className="required-marker" aria-hidden="true">*</span>
+          What you need{" "}
+          <span className="required-marker" aria-hidden="true">*</span>
           <span className="sr-only">(required)</span>
         </label>
         <textarea
@@ -136,10 +186,19 @@ export function ContactForm() {
           required
           rows={5}
           className="field resize-y"
+          placeholder="Audit, remediation, VPAT/ACR, ongoing testing — plus any deadline or compliance requirement."
           aria-required="true"
           aria-invalid={errors.message ? "true" : "false"}
-          aria-describedby={errors.message ? messageErrorId : undefined}
+          aria-describedby={
+            errors.message
+              ? `${messageHintId} ${messageErrorId}`
+              : messageHintId
+          }
         />
+        <span id={messageHintId} className="field-hint">
+          Include the goal, deadline, and any compliance requirement if you
+          have one.
+        </span>
         {errors.message && (
           <span id={messageErrorId} className="field-error" role="alert">
             {errors.message}
@@ -148,11 +207,16 @@ export function ContactForm() {
       </div>
 
       <button type="submit" className="cta cta-primary w-full">
-        Send message
+        Request an Accessibility Audit
       </button>
 
       {status === "sent" && (
-        <p id={statusId} className="text-sm font-semibold text-accent-deep" role="status" aria-live="polite">
+        <p
+          id={statusId}
+          className="text-sm font-semibold text-accent-deep"
+          role="status"
+          aria-live="polite"
+        >
           Opening your email app with your message…
         </p>
       )}
