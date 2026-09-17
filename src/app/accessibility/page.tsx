@@ -15,10 +15,10 @@ export default function AccessibilityPage() {
       <SkipLink />
       <SiteHeader />
 
-      <main id="main" tabIndex={-1} className="page-shell min-h-[100svh] pt-28 pb-20">
+      <main id="main" tabIndex={-1} className="page-shell min-h-[100svh] pt-20 pb-16 md:pt-28 md:pb-20">
         <article className="section prose-a11y">
           <p className="kicker">Legal & compliance</p>
-          <h1 className="display mt-3 text-[clamp(2.2rem,6vw,3.4rem)] font-extrabold leading-[0.98] tracking-[-0.03em] text-ink">
+          <h1 className="display mt-3 text-[clamp(2rem,7vw,3.4rem)] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink">
             Accessibility statement
           </h1>
           <p className="mt-4 text-lg text-muted">

@@ -47,9 +47,9 @@ export const navItems = [
 
 export const stats = [
   { value: "50+", label: "Websites audited & remediated" },
-  { value: "WCAG 2.2", label: "Audits at A, AA, or AAA" },
-  { value: "3 months", label: "Free post-project monitoring" },
-  { value: "Hours", label: "Typical reply time" },
+  { value: "2.2", label: "WCAG audits at A, AA, or AAA" },
+  { value: "3 mo", label: "Free post-project monitoring" },
+  { value: "< 24h", label: "Typical reply time" },
 ];
 
 export const industries = [
