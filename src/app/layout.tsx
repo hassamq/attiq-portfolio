@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Outfit, Syne } from "next/font/google";
+import { Newsreader, Source_Sans_3 } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const syne = Syne({
-  variable: "--font-syne",
+const newsreader = Newsreader({
+  variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
+  style: ["normal", "italic"],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const sourceSans = Source_Sans_3({
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
@@ -62,7 +63,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${syne.variable} ${outfit.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${newsreader.variable} ${sourceSans.variable} h-full antialiased`}
+    >
       <body className="min-h-full font-sans text-ink">
         <JsonLd />
         {children}
