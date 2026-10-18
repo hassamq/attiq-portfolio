@@ -10,9 +10,12 @@ type FieldErrors = {
   message?: string;
 };
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export function ContactForm() {
   const formId = useId();
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
 
   function validate(data: FormData): FieldErrors {
@@ -37,12 +40,13 @@ export function ContactForm() {
     return next;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
     const nextErrors = validate(data);
     setErrors(nextErrors);
+    setErrorMessage("");
 
     if (Object.keys(nextErrors).length > 0) {
       const order = ["name", "email", "website", "message"] as const;
@@ -53,27 +57,69 @@ export function ContactForm() {
       return;
     }
 
+    // Honeypot — ignore bot submissions
+    if (String(data.get("company") || "").trim()) {
+      setStatus("sent");
+      form.reset();
+      return;
+    }
+
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
     const website = String(data.get("website") || "").trim();
     const platform = String(data.get("platform") || "").trim();
     const message = String(data.get("message") || "").trim();
 
-    const subject = encodeURIComponent(
-      `Accessibility audit request from ${name}`,
-    );
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nWebsite: ${website}\nPlatform: ${platform || "Not specified"}\n\n${message}`,
-    );
+    setStatus("sending");
 
-    window.location.href = `mailto:${links.email}?subject=${subject}&body=${body}`;
-    setStatus("sent");
+    try {
+      // Free FormSubmit endpoint — no package, emails go to your inbox
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${encodeURIComponent(links.email)}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            website,
+            platform: platform || "Not specified",
+            message,
+            _subject: `Accessibility audit request from ${name}`,
+            _template: "table",
+            _captcha: "false",
+            _replyto: email,
+          }),
+        },
+      );
+
+      const result = (await response.json().catch(() => null)) as {
+        success?: string | boolean;
+        message?: string;
+      } | null;
+
+      if (!response.ok || result?.success === "false" || result?.success === false) {
+        throw new Error(result?.message || "Send failed");
+      }
+
+      setStatus("sent");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setErrorMessage(
+        `Could not send your message. Email me directly at ${links.email}.`,
+      );
+    }
   }
 
   const nameId = `${formId}-name`;
   const emailId = `${formId}-email`;
   const websiteId = `${formId}-website`;
   const platformId = `${formId}-platform`;
+  const companyId = `${formId}-company`;
   const messageId = `${formId}-message`;
   const nameErrorId = `${nameId}-error`;
   const emailErrorId = `${emailId}-error`;
@@ -87,8 +133,22 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       className="mt-6 space-y-5"
       noValidate
-      aria-describedby={status === "sent" ? statusId : undefined}
+      aria-describedby={
+        status === "sent" || status === "error" ? statusId : undefined
+      }
     >
+      {/* Honeypot field — hidden from people, visible to bots */}
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor={companyId}>Company</label>
+        <input
+          id={companyId}
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div>
         <label className="contact-label" htmlFor={nameId}>
           Name <span className="required-marker" aria-hidden="true">*</span>
@@ -104,6 +164,7 @@ export function ContactForm() {
           aria-required="true"
           aria-invalid={errors.name ? "true" : "false"}
           aria-describedby={errors.name ? nameErrorId : undefined}
+          disabled={status === "sending"}
         />
         {errors.name && (
           <span id={nameErrorId} className="field-error" role="alert">
@@ -128,6 +189,7 @@ export function ContactForm() {
           aria-required="true"
           aria-invalid={errors.email ? "true" : "false"}
           aria-describedby={errors.email ? emailErrorId : undefined}
+          disabled={status === "sending"}
         />
         {errors.email && (
           <span id={emailErrorId} className="field-error" role="alert">
@@ -153,6 +215,7 @@ export function ContactForm() {
           aria-required="true"
           aria-invalid={errors.website ? "true" : "false"}
           aria-describedby={errors.website ? websiteErrorId : undefined}
+          disabled={status === "sending"}
         />
         {errors.website && (
           <span id={websiteErrorId} className="field-error" role="alert">
@@ -171,6 +234,7 @@ export function ContactForm() {
           name="platform"
           placeholder="Shopify, WordPress, custom, etc."
           className="field"
+          disabled={status === "sending"}
         />
       </div>
 
@@ -194,6 +258,7 @@ export function ContactForm() {
               ? `${messageHintId} ${messageErrorId}`
               : messageHintId
           }
+          disabled={status === "sending"}
         />
         <span id={messageHintId} className="field-hint">
           Include the goal, deadline, and any compliance requirement if you
@@ -206,8 +271,14 @@ export function ContactForm() {
         )}
       </div>
 
-      <button type="submit" className="cta cta-primary w-full">
-        Request an Accessibility Audit
+      <button
+        type="submit"
+        className="cta cta-primary w-full"
+        disabled={status === "sending"}
+      >
+        {status === "sending"
+          ? "Sending…"
+          : "Request an Accessibility Audit"}
       </button>
 
       {status === "sent" && (
@@ -217,7 +288,18 @@ export function ContactForm() {
           role="status"
           aria-live="polite"
         >
-          Opening your email app with your message…
+          Message sent. I&apos;ll get back to you soon.
+        </p>
+      )}
+
+      {status === "error" && (
+        <p
+          id={statusId}
+          className="text-sm font-semibold text-[color:var(--error)]"
+          role="alert"
+          aria-live="assertive"
+        >
+          {errorMessage}
         </p>
       )}
     </form>
