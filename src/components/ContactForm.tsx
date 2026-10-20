@@ -12,6 +12,8 @@ type FieldErrors = {
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
 export function ContactForm() {
   const formId = useId();
   const [status, setStatus] = useState<Status>("idle");
@@ -64,6 +66,14 @@ export function ContactForm() {
       return;
     }
 
+    if (!accessKey) {
+      setStatus("error");
+      setErrorMessage(
+        `Form is not configured yet. Email me directly at ${links.email}.`,
+      );
+      return;
+    }
+
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
     const website = String(data.get("website") || "").trim();
@@ -73,35 +83,32 @@ export function ContactForm() {
     setStatus("sending");
 
     try {
-      // Free FormSubmit endpoint — no package, emails go to your inbox
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${encodeURIComponent(links.email)}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            website,
-            platform: platform || "Not specified",
-            message,
-            _subject: `Accessibility audit request from ${name}`,
-            _template: "table",
-            _captcha: "false",
-            _replyto: email,
-          }),
+      // Free Web3Forms — no npm package; emails go to your verified inbox
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-      );
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Accessibility audit request from ${name}`,
+          from_name: "Attiq Portfolio",
+          name,
+          email,
+          website,
+          platform: platform || "Not specified",
+          message,
+          replyto: email,
+        }),
+      });
 
       const result = (await response.json().catch(() => null)) as {
-        success?: string | boolean;
+        success?: boolean;
         message?: string;
       } | null;
 
-      if (!response.ok || result?.success === "false" || result?.success === false) {
+      if (!response.ok || !result?.success) {
         throw new Error(result?.message || "Send failed");
       }
 
@@ -137,7 +144,6 @@ export function ContactForm() {
         status === "sent" || status === "error" ? statusId : undefined
       }
     >
-      {/* Honeypot field — hidden from people, visible to bots */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={companyId}>Company</label>
         <input
